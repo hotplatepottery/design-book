@@ -1,0 +1,162 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>HOTplate Design Book</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky filter bar over a dense, wrapping image grid; tap any design to open a full-screen flip book. */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --ink:#18212e; --muted:#5b6676; --line:#d9dee5;
+  --cobalt:#2547a0; --cobalt-soft:#e3e9f7; --ember:#e2552b; --shade:rgba(10,14,22,.97);
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161e; --surface:#1a212c; --ink:#e9edf2; --muted:#9aa5b4; --line:#2b3442;
+  --cobalt:#8ea8ec; --cobalt-soft:#233157; --ember:#ff7a52; --shade:rgba(4,6,10,.97); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161e; --surface:#1a212c; --ink:#e9edf2; --muted:#9aa5b4; --line:#2b3442;
+  --cobalt:#8ea8ec; --cobalt-soft:#233157; --ember:#ff7a52; --shade:rgba(4,6,10,.97); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1400px;margin:0 auto}
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{padding-block:20px 16px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);font-weight:600}
+.brand h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.brand p{margin:6px 0 0;color:var(--muted);max-width:56ch}
+.search{flex:1 1 260px;max-width:380px;display:flex}
+.search input{width:100%;font:inherit;padding:11px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.search input:focus-visible{outline:2px solid var(--cobalt);outline-offset:1px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{padding-block:10px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.row::-webkit-scrollbar{display:none}
+.row .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);align-self:center;flex:0 0 auto;width:62px}
+button{font:inherit;cursor:pointer}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:999px;font-size:14px;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:var(--surface)}
+.medium .chip{font-weight:600;padding:8px 14px}
+.chip:focus-visible,.card:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px 4px;flex-wrap:wrap}
+.count{color:var(--muted);font-variant-numeric:tabular-nums}
+.flipbtn{background:var(--ember);color:#fff;border:0;border-radius:999px;padding:9px 16px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-block:10px 48px}
+@media (min-width:900px){.grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;padding:0;text-align:left;color:inherit;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:1/1;background:var(--cobalt-soft);overflow:hidden;max-width:100%}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.card:hover img{transform:scale(1.03)}
+.card .cap{padding:9px 11px 11px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.card .nm{font-weight:600;font-size:14px;line-height:1.25}
+.card .sub{font-size:12px;color:var(--muted)}
+.card .ph{position:relative}
+.ask{position:absolute;left:8px;bottom:8px;background:var(--surface);color:var(--ink);border:1px solid var(--line);font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px}
+.book .ask2{display:inline-block;margin-top:4px;font-size:13px;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px}
+.only{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:14px}
+.empty,.loading{padding:48px 0;color:var(--muted);text-align:center}
+.skel{aspect-ratio:1/1;border-radius:10px;background:linear-gradient(90deg,var(--line),var(--surface),var(--line));background-size:200% 100%;animation:sh 1.4s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+footer{color:var(--muted);font-size:13px;padding-block:0 32px}
+/* flip book */
+.book[hidden],.row[hidden]{display:none}
+.book{position:fixed;inset:0;z-index:20;background:var(--shade);display:flex;flex-direction:column;color:#f3f5f8;
+  padding:calc(env(safe-area-inset-top,0px) + 12px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
+.book .bt{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.book .ct{font-variant-numeric:tabular-nums;opacity:.8;font-size:14px}
+.book .x{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 14px}
+.book .stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:12px;padding-block:12px}
+.book .stage img{max-height:100%;max-width:100%;object-fit:contain;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.book .nav{flex:0 0 auto;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font-size:22px}
+@media (max-width:600px){.book .nav{display:none}}
+.book .info{text-align:center;display:flex;flex-direction:column;gap:4px}
+.book .info h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4vw,32px);margin:0;text-wrap:balance}
+.book .info p{margin:0;opacity:.75}
+@media (prefers-reduced-motion:reduce){.card img{transition:none}.skel{animation:none}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand">
+    <span class="eyebrow">HOTplate Pottery &amp; Clayworks · Marquette</span>
+    <h1>Design Book</h1>
+    <p>Every design you can pick for your party or visit. Tap a medium, narrow it down, then tap any picture to flip through.</p>
+  </div>
+  <label class="search" for="q"><input id="q" type="search" placeholder="Search designs: owl, mermaid, Christmas…" aria-label="Search designs"></label>
+</div></header>
+
+<nav class="bar" aria-label="Filters"><div class="wrap">
+  <div class="row medium" id="mediums" role="group" aria-label="Medium"></div>
+  <div class="row" id="cats" role="group" aria-label="Category"></div>
+  <div class="row" id="seasons" role="group" aria-label="Season"></div>
+</div></nav>
+
+<main class="wrap">
+  <div class="meta"><span class="count" id="count">Loading designs…</span><button class="flipbtn" id="flip" type="button">Flip through these</button></div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer class="wrap">Designs and samples are painted by the HOTplate team. Ask at the counter if you don't see what you're looking for.</footer>
+
+<div class="book" id="book" hidden role="dialog" aria-modal="true" aria-label="Flip book">
+  <div class="bt"><span class="ct" id="bct"></span><button class="x" id="bx" type="button">Close</button></div>
+  <div class="stage"><button class="nav" id="bp" type="button" aria-label="Previous design">‹</button><img id="bimg" alt=""><button class="nav" id="bn" type="button" aria-label="Next design">›</button></div>
+  <div class="info"><h2 id="bname"></h2><p id="bsub"></p><p id="bask" hidden><span class="ask2" id="bask2"></span></p></div>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const state={medium:null,cat:null,season:null,q:''};
+let MEDIA=[], loaded={}, items=[], view=[], idx=0;
+function store(k,v){try{v===undefined?null:localStorage.setItem(k,v);return localStorage.getItem(k)}catch(e){return null}}
+async function boot(){
+  const r=await fetch('data/index.json'); MEDIA=(await r.json()).media;
+  const hk=(location.hash||'').slice(1); state.medium=(hk&&MEDIA.find(m=>m.key===hk)?hk:null)||store('hp-medium')||MEDIA[0].key; if(!MEDIA.find(m=>m.key===state.medium)) state.medium=MEDIA[0].key;
+  renderMediums(); await loadMedium(state.medium);
+  addEventListener('hashchange',()=>{const k=location.hash.slice(1);if(MEDIA.find(m=>m.key===k)&&k!==state.medium){state.medium=k;renderMediums();loadMedium(k)}});
+}
+async function loadMedium(key){
+  const m=MEDIA.find(x=>x.key===key); $('#grid').innerHTML=Array.from({length:12},()=>'<div class="skel"></div>').join('');
+  $('#count').textContent='Loading '+m.label+'…';
+  if(!loaded[key]){ const parts=await Promise.all(m.files.map(f=>fetch(f).then(r=>r.json()))); loaded[key]=parts.flat(); }
+  items=loaded[key]; state.cat=null; state.season=null; renderChips(); render();
+}
+function chip(label,on,fn){const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.setAttribute('aria-pressed',on);b.onclick=fn;return b}
+function renderMediums(){const el=$('#mediums');el.innerHTML='';MEDIA.forEach(m=>el.append(chip(m.label+' · '+m.count,m.key===state.medium,()=>{state.medium=m.key;store('hp-medium',m.key);renderMediums();loadMedium(m.key)})))}
+function renderChips(){
+  const cats=[...new Set(items.map(i=>i.c).filter(Boolean))].sort();
+  const seas=['Winter','Valentine’s','Spring','Easter','Summer','Fall','Halloween','Thanksgiving','Christmas'].filter(s=>items.some(i=>i.s===s));
+  const ce=$('#cats');ce.innerHTML='';ce.hidden=cats.length<2;
+  if(cats.length>1){const l=document.createElement('span');l.className='lbl';l.textContent='Type';ce.append(l,chip('All',state.cat===null,()=>{state.cat=null;renderChips();render()}));cats.forEach(c=>ce.append(chip(c,state.cat===c,()=>{state.cat=state.cat===c?null:c;renderChips();render()})))}
+  const se=$('#seasons');se.innerHTML='';se.hidden=!seas.length;
+  if(seas.length){const l=document.createElement('span');l.className='lbl';l.textContent='Season';se.append(l,chip('Any',state.season===null,()=>{state.season=null;renderChips();render()}));seas.forEach(s=>se.append(chip(s,state.season===s,()=>{state.season=state.season===s?null:s;renderChips();render()})))}
+}
+function render(){
+  const q=state.q.trim().toLowerCase();
+  view=items.filter(i=>(!state.cat||i.c===state.cat)&&(!state.season||i.s===state.season)&&(!q||(i.n+' '+(i.c||'')+' '+(i.s||'')).toLowerCase().includes(q)));
+  $('#count').textContent=view.length+(view.length===1?' design':' designs');
+  $('#flip').hidden=!view.length;
+  const g=$('#grid');
+  if(!view.length){g.innerHTML='<p class="empty">No designs match. Try another word or clear a filter.</p>';return}
+  g.innerHTML=view.map((i,k)=>`<button class="card" type="button" data-k="${k}"><div class="ph"><img loading="lazy" src="${i.img}" alt="${esc(i.n)}">${i.i?'<span class="ask">Inspo for you</span>':''}</div><div class="cap"><span class="nm">${esc(i.n)}</span><span class="sub">${esc([i.c,i.s].filter(Boolean).join(' · '))}</span></div></button>`).join('');
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+$('#grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(+c.dataset.k)});
+$('#q').addEventListener('input',e=>{state.q=e.target.value;render()});
+$('#flip').onclick=()=>open(0);
+let lastFocus=null;
+function open(k){idx=k;lastFocus=document.activeElement;$('#book').hidden=false;show();$('#bx').focus()}
+function close(){$('#book').hidden=true;lastFocus&&lastFocus.focus()}
+function show(){const i=view[idx];$('#bimg').src=i.img;$('#bimg').alt=i.n;$('#bname').textContent=i.n;$('#bsub').textContent=[MEDIA.find(m=>m.key===state.medium).label,i.c,i.s].filter(Boolean).join(' · ');$('#bct').textContent=(idx+1)+' of '+view.length;$('#bask').hidden=!i.i;$('#bask2').textContent='Inspo for you'}
+function step(d){idx=(idx+d+view.length)%view.length;show()}
+$('#bx').onclick=close;$('#bp').onclick=()=>step(-1);$('#bn').onclick=()=>step(1);
+document.addEventListener('keydown',e=>{if($('#book').hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+let sx=null;$('#book').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+$('#book').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)step(dx<0?1:-1);sx=null});
+$('#book').addEventListener('click',e=>{if(e.target.id==='book'||e.target.classList.contains('stage'))close()});
+boot().catch(()=>{$('#count').textContent='Designs could not load. Refresh the page to try again.'});
+})();
+</script>
+
+</body></html>
